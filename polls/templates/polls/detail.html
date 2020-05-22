@@ -6,7 +6,7 @@
     <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-<form action="{% url 'polls:vote' question.id %}" method="post">
+<form action="{% url 'polls:vote' question.pk %}" method="post">
     {% csrf_token %}
     {% for choice in question.choice_set.all %}
         {{ choice.choice_text }}
@@ -20,7 +20,4 @@
 <input type="submit" value="Vote">
 </form>
 
-<form action="{% url 'polls:detail' question.id %}" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Delete">
-</form>
+<a href="{% url 'polls:delete' question.pk %}"><input type="submit" value="Delete"></a>

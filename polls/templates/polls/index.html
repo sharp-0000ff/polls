@@ -1,7 +1,7 @@
 {% if question_list %}
     <ul>
         {% for question in question_list %}
-            <li><a href="{% url 'polls:detail' question.id %}">
+            <li><a href="{% url 'polls:detail' question.pk %}">
                 {{ question.question_text }}
             </a></li>
         {% endfor %}
