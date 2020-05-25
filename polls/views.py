@@ -3,6 +3,7 @@ from . import models
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
+from django.utils import timezone
 
 
 # Create your views here.
@@ -12,12 +13,15 @@ class IndexView(generic.ListView):
     template_name = 'polls/index.html'
 
     def get_queryset(self):
-        return models.Question.objects.order_by('-publish_date')[:5]
+        return models.Question.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')[:5]
 
 
 class DetailView(generic.DetailView):
     model = models.Question
     template_name = 'polls/detail.html'
+
+    def get_queryset(self):
+        return models.Question.objects.filter(publish_date__lte=timezone.now())
 
 
 class DeleteView(generic.DeleteView):
